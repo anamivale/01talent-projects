@@ -10,5 +10,7 @@ import (
 
 
 func main() {
-	if os.
+	if len(os.Args) == 3{
+		
+	}
 }
