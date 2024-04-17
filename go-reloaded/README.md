@@ -24,3 +24,10 @@ The tool I am about to build will receive as arguments the name of a file contai
 
 9. Every instance of a should be turned into an if the next word begins with a vowel (a, e, i, o, u) or a h. (Ex: "There it was. A amazing rock!" -> "There it was. An amazing rock!").
 
+# RUN
+cat inputFile.txt
+go run main.go inputFile.txt outputFile.txt
+cat outputFile.txt
+
+
+
