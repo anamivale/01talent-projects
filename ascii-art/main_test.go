@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"strings"
 	"testing"
@@ -22,6 +21,14 @@ func TestAsciiArt(t *testing.T) {
 		want string
 	}{
 		{
+			"empty",
+			args{
+				input:     "",
+				inputFile: inputFile,
+			},
+			"",
+		},
+		{
 			"words with new line at the end",
 			args{
 				input:     "Hello\n",
@@ -37,14 +44,6 @@ func TestAsciiArt(t *testing.T) {
 			},
 			string(test2),
 		},
-		{
-			"empty",
-			args{
-				input:     "",
-				inputFile: inputFile,
-			},
-			"",
-		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -54,7 +53,6 @@ func TestAsciiArt(t *testing.T) {
 		})
 	}
 }
-
 
 func TestOnlyNewLines(t *testing.T) {
 	tests := []struct {
@@ -77,6 +75,25 @@ func TestOnlyNewLines(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := OnlyNewLines(tt.sepInputString); got != tt.want {
 				t.Errorf("OnlyNewLines() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestReadFile(t *testing.T) {
+	tests := []struct {
+		name     string
+		fileName string
+		want     string
+	}{
+		{"Empty", "", ""},
+		{"Wrong extension", "sample.png", ""},
+		{"Right extension", "standard.txt", "standard.txt"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := CheckFileName(tt.fileName); got != tt.want {
+				t.Errorf("ReadFile() = %v, want %v", got, tt.want)
 			}
 		})
 	}
