@@ -6,13 +6,13 @@ import (
 	"path/filepath"
 	"strings"
 )
-
+// checkErr helps in Printing errors that occur when you use some package methods.
 func checkErr(err error) {
 	if err != nil {
 		fmt.Println("You have the following error:", err)
 	}
 }
-
+//CheckFileName helps get a file with the write extension.
 func CheckFileName(fileName string) string {
 	if filepath.Ext(fileName) != ".txt" {
 		return ""
@@ -26,17 +26,26 @@ func main() {
 		return
 	}
 	File := "standard.txt"
+	// File := os.Args[1]
+	// if File != "standard.txt" || File != "shadow.txt" || File != "thinkeratoy.txt" {
+	// 	fmt.Println("Banner file should be standard.txt or shadow.txt or thinkeratoy.txt")
+	// }
 	bannerFile := CheckFileName(File)
+	if bannerFile == "" {
+		fmt.Println("needs a file name not an empty strin")
+		return
+	}
 	bannerContent, err := os.ReadFile(bannerFile)
 	checkErr(err)
+
 	inputString := os.Args[1]
 
-	inputFile := strings.Split(string(bannerContent), "\n")
+	splitBannerContent := strings.Split(string(bannerContent), "\n")
 
-	output := AsciiArt(inputString, inputFile)
+	output := AsciiArt(inputString, splitBannerContent)
 	fmt.Print(output)
 }
-
+//AsciiArt gives the art of the given words in the format required.
 func AsciiArt(input string, inputFile []string) string {
 	var result strings.Builder
 	var newLinesOnly strings.Builder
@@ -76,7 +85,7 @@ func AsciiArt(input string, inputFile []string) string {
 	}
 	return result.String()
 }
-
+// OnlyNewLines checks if the input string contains only new lines.
 func OnlyNewLines(sepInputString []string) string {
 	empty := ""
 	for i, words := range sepInputString {
