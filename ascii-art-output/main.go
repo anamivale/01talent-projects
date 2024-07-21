@@ -4,27 +4,43 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	file "output/functions"
+	fileProcessing "output/functions"
 )
 
 func main() {
 	var outputFile string
-	flag.StringVar(&outputFile, "output", "standard.txt", "banner file")
+	flag.StringVar(&outputFile, "output", "banner.txt", "banner file")
 	flag.Parse()
-	fmt.Println(outputFile)
-	if len(os.Args) != 2 || len(os.Args) !=4 {
+
+	file := ""
+	inputStr := os.Args[2]
+
+	if !(len(os.Args) == 2 || len(os.Args) ==4 ){
+
 		fmt.Println("Usage: go run . [OPTION] [STRING] [BANNER]\n\nEX: go run . --output=<fileName.txt> something standard")
+		return
 	}
-	x := file.ValidateBanner("standard.txt")
+	if len(os.Args) == 2{
+		file = "standard.txt"
+		inputStr= os.Args[1]
+	}
+	
+	file = os.Args[3]+".txt"
+	x := fileProcessing.ValidateBanner(file)
 	if x == nil {
 		fmt.Println("file not valid or empty")
 		return
 	}
-	y := file.Mapping(x)
-	z := file.PrintAscii(y, "val")
+	y := fileProcessing.Mapping(x)
+	z := fileProcessing.PrintAscii(y, inputStr)
 	if z == "!ok"{
 		fmt.Println("character not within the range (32-126)")
 	}
 
-	fmt.Print(z)
+	err := os.WriteFile(outputFile, []byte(z), 0o444)
+	if err != nil {
+		fmt.Println("unable to write to the output file")
+		return
+	}
+
 }
