@@ -2,31 +2,29 @@ package main
 
 import (
 	"fmt"
-	"os"
 
+	"learn.zone01kisumu.ke/git/vmuhembe/lem-in/structs"
 	"learn.zone01kisumu.ke/git/vmuhembe/lem-in/utils"
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		fmt.Println("only requires one argument")
+	filename, errmsg := utils.ParseArgs()
+	if errmsg != "" {
+		fmt.Println(errmsg)
 		return
 	}
-	fileName := os.Args[1]
-
-	content := utils.ReadFile(fileName)
-
-	filledContents, err := utils.GroupContent(content)
+	Antcolony, err := utils.ParseFile(filename)
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println("ERROR: invalid data format,", err)
+		return
 	}
-	x := utils.Searchpath(filledContents.Links, "start", "end")
+	paths, antsperpath, turns := utils.FindPaths(Antcolony)
+	moves := utils.MoveAnts(paths, antsperpath, turns)
 
-	
-	y := utils.RemoveInterPaths(x)
-	fmt.Println(utils.FindPathsToUse(y, 10))
+	// Print the file contents
+	fmt.Println(structs.FileContents)
 
-	for _, v := range y {
-		fmt.Println(len(v), v)
+	for _, move := range moves {
+		fmt.Println(move)
 	}
 }
