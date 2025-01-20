@@ -1,0 +1,64 @@
+body {
+  box-sizing: border-box;
+  background-color: black;
+  color: white;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid rgb(107, 105, 105);
+}
+.fas {
+  font-size: 30px;
+  border-radius: 50%;
+  color: black;
+  background-color: aliceblue;
+  padding: 10px;
+  margin-right: 5px;
+}
+.registered {
+  display: flex;
+  align-items: center;
+}
+
+.body {
+  display: flex;
+  justify-content: safe;
+}
+.sidebar {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  height: 100vh;
+  border-right: 1px solid rgb(107, 105, 105);
+}
+.cat-btn {
+  width: 150px;
+  color: white;
+  background-color: #000;
+}
+.main-section {
+  padding: 20px;
+}
+
+.posts-container {
+  width: 60vw;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.checkboxes {
+  display: flex;
+}
+.cat {
+  margin-right: 5px;
+}
+textarea {
+  width: 30vw;
+}
+.close{
+display: none;
+}
