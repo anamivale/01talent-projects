@@ -26,6 +26,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			t.Execute(w, MidlwarEerr.Error())
 			return
 		}
+		middlewares.SetCookies(w, email)
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}

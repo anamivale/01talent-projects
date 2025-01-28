@@ -22,7 +22,6 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		email := r.FormValue("email")
 		password := r.FormValue("password")
 		confirmpass := r.FormValue("confirmpass")
-		fmt.Println(userName, email, password, confirmpass)
 		if confirmpass != password {
 			t, err := template.ParseFiles("./templates/register.html")
 			if err != nil {
