@@ -23,7 +23,12 @@
       <div class="right">
         <div class="registered">
           <i class="fas fa-user"></i>
-          <p>Valeria</p>
+
+          {{if .IsLoggedIn}}
+          <p><a href="/logout">logout</a></p>
+          {{else}}
+          <p><a href="/login">login</a></p>
+          {{end}}
         </div>
       </div>
     </nav>
@@ -39,66 +44,52 @@
       </div>
       <div class="main-section">
         <div class="posts-container">
-          <form method="post" class="post-form">
-            <textarea name="post" cols="30" rows="10"></textarea>
-            <div class="checkboxes">
-              <div class="cat">
-                <input type="checkbox" />
-                <label for="">Entertainment</label>
-              </div>
-              <div class="cat">
-                <input type="checkbox" />
-                <label for="">Sports</label>
-              </div>
-              <div class="cat">
-                <input type="checkbox" />
-                <label for="">Education</label>
-              </div>
-              <div class="cat">
-                <input type="checkbox" />
-                <label for="">Fashion</label>
-              </div>
-            </div>
-            <input type="submit" value="Post" />
-          </form>
+          <button>
+            <a href="{{if .IsLoggedIn}}/post{{else}}/login{{end}}"
+              >create post</a
+            >
+          </button>
+          {{range .Posts }}
+
           <div class="posts">
             <div class="post-card">
-              <h3>name {{.date}}</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-                aliquid blanditiis dicta quasi sint vitae facilis et. Vero
-                assumenda fuga, tempore adipisci sit pariatur eos praesentium,
-                provident ipsam dignissimos unde!
-              </p>
+              <h3>name {{.Created_at}}</h3>
+              <p>{{.Content}}</p>
 
               <div class="todos">
-                <button>like</button>
-                <button>dislike</button>
-                <button class="open-comment-section">comment</button>
+                <button onclick="likePost('{{.Id}}')" id="like-count-{{.Id}}">
+                  like {{.Like}}
+                </button>
+                <button onclick="disLikePost('{{.Id}}', '{{.Content}}')">
+                  dislike {{.Dislike}}
+                </button>
+                <button class="open-comment-section" onclick="Open('{{.Id}}')">
+                  comment
+                </button>
               </div>
             </div>
-            <div class="comment-section close">
+            <div class="comment-section close" id="{{.Id}}">
               <form method="post" class="form-comment">
-                <textarea name="post" cols="30" rows="10"></textarea>
+                <textarea name="content" cols="30" rows="10"></textarea>
+                <input type="hidden" name="postid" value="{{.Id}}" />
                 <input type="submit" value="comment" />
               </form>
               <div class="comments">
-                <h3>name</h3>
-                <p class="comment">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Praesentium dolor labore nam inventore hic sequi qui, quasi
-                  laudantium. Eligendi quaerat officia ad quae sed incidunt
-                  ipsam rerum alias fuga reprehenderit?
-                </p>
+                {{range .PostComments}}
+                <h3>{{.Name}}</h3>
+                <p class="comment">{{.Content}}</p>
                 <div class="todos">
-                  <button>like</button>
-                  <button>dislike</button>
+                  <button>likes {{.Like}}</button>
+                  <button>dislike {{.Dislike}}</button>
                 </div>
+                {{end}}
               </div>
             </div>
           </div>
+          {{end}}
         </div>
       </div>
     </div>
+    <script src="../static/js/index.js"></script>
   </body>
 </html>
