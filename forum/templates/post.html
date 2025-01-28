@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/index.css" />
+  </head>
+  <body>
+    <form method="post" class="post-form" onsubmit="sub()">
+      <textarea name="post" class="post" cols="30" rows="10"></textarea>
+      <div class="checkboxes">
+        <div class="cat">
+          <input name="Entertainment" type="checkbox" value="Entertainment" />
+          <label for="">Entertainment</label>
+        </div>
+        <div class="cat">
+          <input name="Sports" type="checkbox" value="Sports" />
+          <label for="">Sports</label>
+        </div>
+        <div class="cat">
+          <input name="Education" type="checkbox" value="Education" />
+          <label for="">Education</label>
+        </div>
+        <div class="cat">
+          <input name="Fashion" type="checkbox" value="Fashion" />
+          <label for="">Fashion</label>
+        </div>
+      </div>
+      <input type="submit" value="Post" class="submit" />
+    </form>
+    <script src="../static/js/index.js"></script>
+  </body>
+</html>
