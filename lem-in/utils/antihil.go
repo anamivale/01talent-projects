@@ -8,6 +8,8 @@ import (
 // returns a slice of moves that indicates paths takes by each ant
 func MoveAnts(paths []structs.Path, antsperroom map[int][]int, turns int) []string {
 	moves := make([]string, turns)
+
+	fmt.Println(turns)
 	for i, path := range paths {
 		ants := antsperroom[i]
 		for j, ant := range ants {
